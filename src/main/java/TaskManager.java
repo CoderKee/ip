@@ -11,7 +11,8 @@ public class TaskManager {
     public void execute(CommandPackage cmd) {
         switch (cmd.getCmd()) {
             case ADD:
-                this.addTask(cmd.getStr());
+            case TODO:
+                this.addTodo(cmd.getStr());
                 break;
             case MARK:
                 this.markTask(cmd.getStr());
@@ -22,14 +23,31 @@ public class TaskManager {
             case LIST:
                 this.getTasks();
                 break;
+            case DEADLINE:
+                this.addDeadline(cmd.getStr(), cmd.getTo());
+                break;
+            case EVENT:
+                this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
+                break;
         }
     }
 
-    public void addTask(String msg) {
-        this.taskList.add(new ToDo(msg));
-        System.out.println(chatBorder);
-        System.out.println(indent + "added: " + msg);
-        System.out.println(chatBorder);
+    public void addDeadline(String msg, String from) {
+        Task newTask = new Deadline(msg, from);
+        this.taskList.add(newTask);
+        taskOutput(newTask);
+    }
+
+    public void addTodo(String msg) {
+        Task newTask = new ToDo(msg);
+        this.taskList.add(newTask);
+        taskOutput(newTask);
+    }
+
+    public void addEvent(String msg, String from, String to) {
+        Task newTask = new Event(msg, from, to);
+        this.taskList.add(newTask);
+        taskOutput(newTask);
     }
 
     public void markTask(String msg) {
@@ -40,14 +58,11 @@ public class TaskManager {
                 task.mark();
             }
         }
-        System.out.println(chatBorder);
         if (current != null) {
-            System.out.println(indent + "Congratulations on completing: ");
-            System.out.println(indent + "  " + current.toString());
+            output("Congratulations on completing:\n" + indent + "  " + current.toString());
         } else {
-            System.out.println(indent + "Oops! Task not found: " + msg);
+            output("Oops! Task not found: " + msg);
         }
-        System.out.println(chatBorder);
     }
 
     public void unmarkTask(String msg) {
@@ -58,16 +73,25 @@ public class TaskManager {
                 task.unmark();
             }
         }
-        System.out.println(chatBorder);
         if (current != null) {
-            System.out.println(indent + "Ok, I've unmarked: ");
-            System.out.println(indent + "  " + current.toString());
+            output("Ok, I've unmarked:\n" + indent + "  " + current.toString());
         } else {
-            System.out.println(indent + "Oops! Task not found: " + msg);
+            output("Oops! Task not found: " + msg);
         }
+    }
+
+    public void output(String msg) {
+        System.out.println(chatBorder);
+        System.out.println(indent + msg);
         System.out.println(chatBorder);
     }
 
+    public void taskOutput(Task task) {
+        int length = this.taskList.size();
+        output("Okay, I've added:\n" + indent
+                + "  " + task.toString() + "\n" + indent
+                + "Now you've got " + length + " tasks");
+    }
     public void getTasks() {
         System.out.println(chatBorder);
         for (int i = 0; i < this.taskList.size(); i++) {
