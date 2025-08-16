@@ -17,6 +17,7 @@ public class Reader {
                     throw new KeeException("Oops! You need to specify a task.");
                 }
                 return new CommandPackage(Command.UNMARK, withoutCmd);
+            case "add":
             case "todo":
                 if (withoutCmd.isEmpty()) {
                     throw new KeeException("Oops! You need to specify a task.");
@@ -42,6 +43,11 @@ public class Reader {
                 }
                 String to = eParts2[1];
                 return new CommandPackage(Command.EVENT, eDescription, from, to);
+            case "delete":
+                if (withoutCmd.isEmpty()) {
+                    throw new KeeException("Oops! You need to specify a task.");
+                }
+                return new CommandPackage(Command.DELETE, withoutCmd);
             default:
                 throw new KeeException("Oops! I do not recognise this command '" + cmd + "'");
         }
