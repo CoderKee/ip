@@ -92,10 +92,15 @@ public class TaskManager {
                 + "  " + task.toString() + "\n" + indent
                 + "Now you've got " + length + " tasks");
     }
+    
     public void getTasks() {
         System.out.println(chatBorder);
-        for (int i = 0; i < this.taskList.size(); i++) {
-            System.out.println(indent + (i + 1) + ". " + this.taskList.get(i).toString());
+        if (!this.taskList.isEmpty()) {
+            for (int i = 0; i < this.taskList.size(); i++) {
+                System.out.println(indent + (i + 1) + ". " + this.taskList.get(i).toString());
+            }
+        } else {
+            System.out.println(indent + "You have not added any tasks yet");
         }
         System.out.println(chatBorder);
     }

@@ -38,8 +38,14 @@ public class Kee {
                 exit();
                 break;
             }
-            CommandPackage cmd = this.reader.read(input);
-            this.manager.execute(cmd);
+            try {
+                CommandPackage cmd = this.reader.read(input);
+                this.manager.execute(cmd);
+            } catch (KeeException e) {
+                System.out.println(chatBorder);
+                System.out.println(indent + e.getMessage());
+                System.out.println(chatBorder);
+            }
         }
         scanner.close();
     }
