@@ -23,4 +23,8 @@ public abstract class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
+    public String toData() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
 }

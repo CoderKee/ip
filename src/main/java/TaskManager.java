@@ -2,10 +2,15 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private final ArrayList<Task> taskList;
-    private static final String indent = "     ";
-    private static final String chatBorder = "     ____________________________________________________________";
+    private static final String INDENT = "     ";
+    private static final String CHAT_BORDER = "     ____________________________________________________________";
+
     public TaskManager() {
         this.taskList = new ArrayList<>();
+    }
+
+    public TaskManager(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public void execute(CommandPackage cmd) throws KeeException {
@@ -62,7 +67,7 @@ public class TaskManager {
             }
         }
         if (current != null) {
-            output("Congratulations on completing:\n" + indent + "  " + current.toString());
+            output("Congratulations on completing:\n" + INDENT + "  " + current.toString());
         } else {
             throw new KeeException("Oops! Task not found: " + msg);
         }
@@ -78,7 +83,7 @@ public class TaskManager {
             }
         }
         if (current != null) {
-            output("Ok, I've unmarked:\n" + indent + "  " + current.toString());
+            output("Ok, I've unmarked:\n" + INDENT + "  " + current.toString());
         } else {
             throw new KeeException("Oops! Task not found: " + msg);
         }
@@ -112,35 +117,39 @@ public class TaskManager {
         }
     }
     public void output(String msg) {
-        System.out.println(chatBorder);
-        System.out.println(indent + msg);
-        System.out.println(chatBorder);
+        System.out.println(CHAT_BORDER);
+        System.out.println(INDENT + msg);
+        System.out.println(CHAT_BORDER);
     }
 
     public void taskOutput(Task task) {
         int length = this.taskList.size();
-        output("Okay, I've added:\n" + indent
-                + "  " + task.toString() + "\n" + indent
+        output("Okay, I've added:\n" + INDENT
+                + "  " + task.toString() + "\n" + INDENT
                 + "Now you've got " + length + " tasks");
     }
 
     public void deleteOutput(Task task) {
         int length = this.taskList.size();
-        output("Okay, I've removed:\n" + indent
-                + "  " + task.toString() + "\n" + indent
+        output("Okay, I've removed:\n" + INDENT
+                + "  " + task.toString() + "\n" + INDENT
                 + "Now you've got " + length + " tasks");
     }
     
     public void getTasks() {
-        System.out.println(chatBorder);
+        System.out.println(CHAT_BORDER);
         if (!this.taskList.isEmpty()) {
-            System.out.println(indent + "Here are your tasks:");
+            System.out.println(INDENT + "Here are your tasks:");
             for (int i = 0; i < this.taskList.size(); i++) {
-                System.out.println(indent + (i + 1) + ". " + this.taskList.get(i).toString());
+                System.out.println(INDENT + (i + 1) + ". " + this.taskList.get(i).toString());
             }
         } else {
-            System.out.println(indent + "You have not added any tasks yet");
+            System.out.println(INDENT + "You have not added any tasks yet");
         }
-        System.out.println(chatBorder);
+        System.out.println(CHAT_BORDER);
+    }
+
+    public ArrayList<Task> getList() {
+        return taskList;
     }
 }
