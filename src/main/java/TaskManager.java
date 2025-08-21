@@ -19,10 +19,10 @@ public class TaskManager {
                 this.addTodo(cmd.getStr());
                 break;
             case MARK:
-                this.markTask(cmd.getStr());
+                this.markTask(cmd.getStr(), true);
                 break;
             case UNMARK:
-                this.unmarkTask(cmd.getStr());
+                this.markTask(cmd.getStr(), false);
                 break;
             case LIST:
                 this.getTasks();
@@ -57,35 +57,37 @@ public class TaskManager {
         taskOutput(newTask);
     }
 
-    public void markTask(String msg) throws KeeException {
+    public void markTask(String msg, boolean mark) throws KeeException {
         Task current = null;
-        for (Task task : this.taskList) {
-            if (task.getDescription().equals(msg)) {
-                current = task;
-                task.mark();
-                break;
+        try {
+            int index = Integer.parseInt(msg);
+            if (index > this.taskList.size()) {
+                throw new KeeException("Oops! It seems that there is no task numbered: " + msg);
             }
-        }
-        if (current != null) {
-            output("Congratulations on completing:\n" + INDENT + "  " + current.toString());
-        } else {
-            throw new KeeException("Oops! Task not found: " + msg);
-        }
-    }
-
-    public void unmarkTask(String msg) throws KeeException{
-        Task current = null;
-        for (Task task : this.taskList) {
-            if (task.getDescription().equals(msg)) {
-                current = task;
-                task.unmark();
-                break;
+            current = this.taskList.get(index - 1);
+        } catch (NumberFormatException e) {
+            int index = -1;
+            for (int i = 0; i < this.taskList.size(); i++) {
+                if (this.taskList.get(i).getDescription().equals(msg)) {
+                    index = i;
+                    current = this.taskList.get(i);
+                    break;
+                }
             }
-        }
-        if (current != null) {
-            output("Ok, I've unmarked:\n" + INDENT + "  " + current.toString());
-        } else {
-            throw new KeeException("Oops! Task not found: " + msg);
+            if (index == -1) {
+                throw new KeeException("Oops! Task not found: " + msg);
+            }
+        } finally {
+            if (current == null) {
+                throw new KeeException("Oops! Task found: " + msg);
+            }
+            if (mark) {
+                current.mark();
+                output("Congratulations on completing:\n" + INDENT + "  " + current.toString());
+            } else {
+                current.unmark();
+                output("Ok, I've unmarked:\n" + INDENT + "  " + current.toString());
+            }
         }
     }
 

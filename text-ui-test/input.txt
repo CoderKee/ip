@@ -1,0 +1,12 @@
+todo read book
+deadline code /by 5pm
+event lecture /from 2pm /to 4pm
+mark 1
+mark code
+unmark code
+list
+delete 1
+delete code
+list
+deadline homework
+bye
