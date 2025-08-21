@@ -60,7 +60,7 @@ public class Kee {
             try {
                 CommandPackage cmd = this.reader.read(input);
                 this.manager.execute(cmd);
-            } catch (KeeException e) {
+            } catch (KeeException | DateException e) {
                 System.out.println(CHAT_BORDER);
                 System.out.println(INDENT + e.getMessage());
                 System.out.println(CHAT_BORDER);

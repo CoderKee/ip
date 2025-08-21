@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -39,7 +40,7 @@ public class TaskManager {
         }
     }
 
-    public void addDeadline(String msg, String from) {
+    public void addDeadline(String msg, LocalDateTime from) {
         Task newTask = new Deadline(msg, from);
         this.taskList.add(newTask);
         taskOutput(newTask);
@@ -51,7 +52,7 @@ public class TaskManager {
         taskOutput(newTask);
     }
 
-    public void addEvent(String msg, String from, String to) {
+    public void addEvent(String msg, LocalDateTime from, LocalDateTime to) {
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
         taskOutput(newTask);

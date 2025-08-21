@@ -1,8 +1,10 @@
+import java.time.LocalDateTime;
+
 public class CommandPackage {
     private final Command cmd;
     private final String str;
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public CommandPackage(Command cmd) {
         this.cmd = cmd;
@@ -18,14 +20,14 @@ public class CommandPackage {
         this.to = null;
     }
 
-    public CommandPackage(Command cmd, String str, String to) {
+    public CommandPackage(Command cmd, String str, LocalDateTime to) {
         this.cmd = cmd;
         this.str = str;
         this.from = null;
         this.to = to;
     }
     
-    public CommandPackage(Command cmd, String str, String from, String to) {
+    public CommandPackage(Command cmd, String str, LocalDateTime from, LocalDateTime to) {
         this.cmd = cmd;
         this.str = str;
         this.from = from;
@@ -40,11 +42,11 @@ public class CommandPackage {
         return str;
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 
