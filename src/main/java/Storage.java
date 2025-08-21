@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,14 +44,25 @@ public class Storage {
             if (lines.length <= 2) {
                 throw new StorageException("Oops! This file is not what I expected.");
             }
-            added = new Deadline(lines[2], lines[3]);
+            try {
+                LocalDateTime deadline = Reader.parseDate(lines[3], "d MMMM yyyy h:mma");
+                added = new Deadline(lines[2], deadline);
+            } catch (DateException e) {
+                throw new StorageException("Oops! This file is not what I expected.");
+            }
             break;
         case "E":
             if (lines.length <= 2) {
                 throw new StorageException("Oops! This file is not what I expected.");
             }
-            String[] time = lines[3].split("-");
-            added = new Event(lines[2], time[0], time[1]);
+            try {
+                String[] time = lines[3].split("-");
+                LocalDateTime from = Reader.parseDate(time[0], "d MMMM yyyy h:mma");
+                LocalDateTime to = Reader.parseDate(time[1], "d MMMM yyyy h:mma");
+                added = new Event(lines[2], from, to);
+            } catch (DateException e) {
+                throw new StorageException("Oops! This file is not what I expected.");
+            }
             break;
         default:
             throw new StorageException("Oops! This file is not what I expected.");
