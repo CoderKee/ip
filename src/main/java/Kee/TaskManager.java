@@ -1,3 +1,9 @@
+package Kee;
+
+import Kee.Command.CommandPackage;
+import Kee.Exception.KeeException;
+import Kee.Task.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -76,7 +82,7 @@ public class TaskManager {
             }
         } finally {
             if (current == null) {
-                throw new KeeException("Oops! Task found: " + msg);
+                throw new KeeException("Oops! Task not found: " + msg);
             }
             if (mark) {
                 current.mark();
@@ -124,14 +130,14 @@ public class TaskManager {
         int length = this.taskList.size();
         output("Okay, I've added:\n" + UI.INDENT
                 + "  " + task.toString() + "\n" + UI.INDENT
-                + "Now you've got " + length + " tasks");
+                + "Now you've got " + length + " task(s)");
     }
 
     public void deleteOutput(Task task) {
         int length = this.taskList.size();
         output("Okay, I've removed:\n" + UI.INDENT
                 + "  " + task.toString() + "\n" + UI.INDENT
-                + "Now you've got " + length + " tasks");
+                + "Now you've got " + length + " task(s)");
     }
 
     public void getTasks() {

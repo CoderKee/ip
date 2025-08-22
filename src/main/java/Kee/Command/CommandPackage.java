@@ -1,3 +1,5 @@
+package Kee.Command;
+
 import java.time.LocalDateTime;
 
 public class CommandPackage {

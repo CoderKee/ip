@@ -1,3 +1,9 @@
+package Kee;
+
+import Kee.Command.CommandPackage;
+import Kee.Exception.*;
+import Kee.Task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

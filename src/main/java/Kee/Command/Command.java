@@ -1,3 +1,5 @@
+package Kee.Command;
+
 public enum Command {
     ADD,
     LIST,

@@ -1,6 +1,6 @@
 todo read book
-deadline code /by 5pm
-event lecture /from 2pm /to 4pm
+deadline code /by 22/8/2025 16:00
+event lecture /from 22/8/2025 18:00 /to 22/8/2025 20:00
 mark 1
 mark code
 unmark code

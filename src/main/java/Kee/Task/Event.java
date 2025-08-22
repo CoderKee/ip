@@ -1,7 +1,9 @@
+package Kee.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     LocalDateTime from;
     LocalDateTime to;
     String fromFormatted;

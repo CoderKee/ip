@@ -1,3 +1,7 @@
+package Kee;
+
+import Kee.Task.Task;
+
 import java.util.ArrayList;
 
 public class UI {
@@ -8,7 +12,7 @@ public class UI {
 
     public void greet() {
         System.out.println(CHAT_BORDER);
-        System.out.println(INDENT + "Hi! I'm Kee");
+        System.out.println(INDENT + "Hi! I'm Kee.");
         System.out.println(INDENT + "What can I help you with? :D");
         System.out.println(CHAT_BORDER);
     }
