@@ -22,4 +22,8 @@ public class Deadline extends Task {
     public String toData() {
         return "D | " + super.toData() + " | " + formatted;
     }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

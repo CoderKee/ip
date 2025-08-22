@@ -44,10 +44,13 @@ public class Storage {
         Task added = null;
         switch (lines[0]) {
         case "T":
+            if (lines.length != 3) {
+                throw new StorageException("Oops! This file is not what I expected.");
+            }
             added = new ToDo(lines[2]);
             break;
         case "D":
-            if (lines.length <= 2) {
+            if (lines.length != 4) {
                 throw new StorageException("Oops! This file is not what I expected.");
             }
             try {
@@ -58,11 +61,14 @@ public class Storage {
             }
             break;
         case "E":
-            if (lines.length <= 2) {
+            if (lines.length != 4) {
                 throw new StorageException("Oops! This file is not what I expected.");
             }
             try {
                 String[] time = lines[3].split("-");
+                if (time.length != 2) {
+                    throw new StorageException("Oops! This file is not what I expected.");
+                }
                 LocalDateTime from = Reader.parseDate(time[0], "d MMMM yyyy h:mma");
                 LocalDateTime to = Reader.parseDate(time[1], "d MMMM yyyy h:mma");
                 added = new Event(lines[2], from, to);
@@ -71,6 +77,9 @@ public class Storage {
             }
             break;
         default:
+            throw new StorageException("Oops! This file is not what I expected.");
+        }
+        if (!lines[1].equals("1") && !lines[1].equals("0")) {
             throw new StorageException("Oops! This file is not what I expected.");
         }
         if (lines[1].equals("1")) {

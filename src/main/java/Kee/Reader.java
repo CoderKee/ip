@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Reader {
+
     public CommandPackage read(String msg) throws KeeException, DateException {
         msg = msg.trim();
         int firstSpace = msg.indexOf(' ');

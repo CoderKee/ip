@@ -8,6 +8,7 @@ public class Event extends Task {
     LocalDateTime to;
     String fromFormatted;
     String toFormatted;
+
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
@@ -15,6 +16,14 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy h:mma");
         this.fromFormatted = from.format(formatter);
         this.toFormatted = to.format(formatter);
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     @Override
