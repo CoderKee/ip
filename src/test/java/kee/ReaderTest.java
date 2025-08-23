@@ -1,13 +1,16 @@
-package Kee;
+package kee;
 
-import Kee.Exception.DateException;
-import Kee.Exception.KeeException;
-import Kee.Command.CommandPackage;
-import Kee.Command.Command;
+import kee.exception.DateException;
+import kee.exception.KeeException;
+
+import kee.command.CommandPackage;
+import kee.command.Command;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderTest {
 

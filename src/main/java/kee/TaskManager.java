@@ -1,10 +1,16 @@
-package Kee;
+package kee;
 
-import Kee.Command.CommandPackage;
-import Kee.Exception.KeeException;
-import Kee.Task.*;
+import kee.command.CommandPackage;
+
+import kee.exception.KeeException;
+
+import kee.task.Task;
+import kee.task.ToDo;
+import kee.task.Deadline;
+import kee.task.Event;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -45,19 +51,19 @@ public class TaskManager {
     public void addDeadline(String msg, LocalDateTime from) {
         Task newTask = new Deadline(msg, from);
         this.taskList.add(newTask);
-        taskOutput(newTask);
+        outputTask(newTask);
     }
 
     public void addTodo(String msg) {
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
-        taskOutput(newTask);
+        outputTask(newTask);
     }
 
     public void addEvent(String msg, LocalDateTime from, LocalDateTime to) {
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
-        taskOutput(newTask);
+        outputTask(newTask);
     }
 
     public void markTask(String msg, boolean mark) throws KeeException {
@@ -126,7 +132,7 @@ public class TaskManager {
         ui.print(msg);
     }
 
-    public void taskOutput(Task task) {
+    public void outputTask(Task task) {
         int length = this.taskList.size();
         output("Okay, I've added:\n" + UI.INDENT
                 + "  " + task.toString() + "\n" + UI.INDENT

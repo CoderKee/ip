@@ -1,4 +1,4 @@
-package Kee.Command;
+package kee.command;
 
 public enum Command {
     ADD,

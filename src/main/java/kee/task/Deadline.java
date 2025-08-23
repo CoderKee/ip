@@ -1,4 +1,4 @@
-package Kee.Task;
+package kee.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     LocalDateTime by;
     String formatted;
+
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;

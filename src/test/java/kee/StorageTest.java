@@ -1,14 +1,19 @@
-package Kee;
+package kee;
 
-import Kee.Exception.StorageException;
-import Kee.Task.Event;
-import Kee.Task.Task;
-import Kee.Task.Deadline;
-import Kee.Task.ToDo;
+import kee.exception.StorageException;
+
+import kee.task.Event;
+import kee.task.Task;
+import kee.task.Deadline;
+import kee.task.ToDo;
+
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StorageTest {
     Storage storage = new Storage("dummy");

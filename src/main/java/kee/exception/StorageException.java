@@ -1,4 +1,4 @@
-package Kee.Exception;
+package kee.exception;
 
 public class StorageException extends Exception {
     public StorageException(String message) {

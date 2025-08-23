@@ -1,4 +1,4 @@
-package Kee.Task;
+package kee.task;
 
 public abstract class Task {
     protected String description;
@@ -9,8 +9,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public boolean isDone() { return this.isDone; }
-    ;
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void mark() {
         this.isDone = true;
     }
