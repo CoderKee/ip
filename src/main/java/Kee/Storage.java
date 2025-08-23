@@ -15,10 +15,23 @@ import java.util.Scanner;
 public class Storage {
     private String path;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param path the file path for storing task data
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+
+    /**
+     * Loads tasks from the file specified by the field path.
+     * If the file does not exist, it will attempt to create a new file.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     * @throws StorageException if the file content is invalid or cannot be read (i.e. corrupted)
+     */
     public ArrayList<Task> loadFile() throws StorageException {
         File file = new File(path);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -36,6 +49,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts a line from the file into a Task object.
+     *
+     * @param line a single line from the task file
+     * @return the corresponding Task object made from that line
+     * @throws StorageException if the line is invalid or cannot be parsed (i.e. corrupted)
+     */
     public Task assignTask(String line) throws StorageException {
         String[] lines = line.split(" \\| ");
         if (lines.length <= 1) {
@@ -88,6 +108,12 @@ public class Storage {
         return added;
     }
 
+    /**
+     * Creates a new empty file at the specified path.
+     * Also creates parent directories if they do not exist.
+     *
+     * @throws StorageException if the file or directories cannot be created
+     */
     public void createNew() throws StorageException {
         try {
             File file = new File(path);
@@ -101,6 +127,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the given list of tasks to the file at the specified path.
+     * Each task is written in its data string format.
+     *
+     * @param tasks the ArrayList of tasks to save
+     * @throws StorageException if the file cannot be written
+     */
     public void writeFile(ArrayList<Task> tasks) throws StorageException {
         File file = new File(path);
         try {

@@ -11,11 +11,23 @@ public class TaskManager {
     private ArrayList<Task> taskList;
     private final UI ui;
 
+
+    /**
+     * Creates a new TaskManager with an empty task list.
+     *
+     * @param ui the UI class used for displaying messages
+     */
     public TaskManager(UI ui) {
         this.taskList = new ArrayList<>();
         this.ui = ui;
     }
 
+    /**
+     * Executes the given command by dispatching it to the appropriate handler based off Command type.
+     *
+     * @param cmd the command to execute
+     * @throws KeeException if the command cannot be executed
+     */
     public void execute(CommandPackage cmd) throws KeeException {
         switch (cmd.getCmd()) {
             case TODO:
@@ -42,24 +54,49 @@ public class TaskManager {
         }
     }
 
-    public void addDeadline(String msg, LocalDateTime from) {
-        Task newTask = new Deadline(msg, from);
+    /**
+     * Adds a Deadline task to the list.
+     *
+     * @param msg  the description of the task
+     * @param end the deadline
+     */
+    public void addDeadline(String msg, LocalDateTime end) {
+        Task newTask = new Deadline(msg, end);
         this.taskList.add(newTask);
         taskOutput(newTask);
     }
 
+    /**
+     * Adds a ToDo task to the list.
+     *
+     * @param msg the description of the task
+     */
     public void addTodo(String msg) {
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
         taskOutput(newTask);
     }
 
+    /**
+     * Adds a Event task to the list.
+     *
+     * @param msg the description of the task
+     * @param from the start time of the task
+     * @param to the end time of the task
+     */
     public void addEvent(String msg, LocalDateTime from, LocalDateTime to) {
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
         taskOutput(newTask);
     }
 
+    /**
+     * Marks or unmarks a task, identified by its index or description.
+     *
+     * @param msg  the task index (1-based) or description
+     * @param mark true to mark, false to unmark
+     * @throws KeeException if the task cannot be found
+     */
     public void markTask(String msg, boolean mark) throws KeeException {
         Task current = null;
         try {
@@ -94,6 +131,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Deletes a task identified by index or description.
+     *
+     * @param msg the task index (1-based) or description
+     * @throws KeeException if the task cannot be found
+     */
     public void deleteEvent(String msg) throws KeeException {
         try {
             int index = Integer.parseInt(msg);
@@ -122,10 +165,20 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Calls the UI class to print a message
+     *
+     * @param msg the message to be printed
+     */
     public void output(String msg) {
         ui.print(msg);
     }
 
+    /**
+     * Outputs a message after adding a task
+     *
+     * @param task the task that was added
+     */
     public void taskOutput(Task task) {
         int length = this.taskList.size();
         output("Okay, I've added:\n" + UI.INDENT
@@ -133,6 +186,11 @@ public class TaskManager {
                 + "Now you've got " + length + " task(s)");
     }
 
+    /**
+     * Outputs a message after deleting a task
+     *
+     * @param task the task that was deleted
+     */
     public void deleteOutput(Task task) {
         int length = this.taskList.size();
         output("Okay, I've removed:\n" + UI.INDENT
@@ -140,14 +198,25 @@ public class TaskManager {
                 + "Now you've got " + length + " task(s)");
     }
 
+    /** Prints all tasks currently in the list by passing task list to UI. */
     public void getTasks() {
         ui.printTasks(this.taskList);
     }
 
+    /**
+     * Returns the list of tasks
+     *
+     * @return list of tasks as ArrayList<Task>
+     */
     public ArrayList<Task> getList() {
         return taskList;
     }
 
+    /**
+     * Sets the task list to a new list of tasks, replacing the old one.
+     *
+     * @param list the new list of tasks
+     */
     public void setTasks(ArrayList<Task> list) {
         this.taskList = list;
     }

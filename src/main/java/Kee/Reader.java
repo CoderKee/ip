@@ -10,6 +10,15 @@ import java.time.format.DateTimeParseException;
 
 public class Reader {
 
+    /**
+     * Parses a user input string, recognizes the command and converts it into a CommandPackage.
+     * Throws exceptions if the input is invalid.
+     *
+     * @param msg the user input string
+     * @return a CommandPackage representing the parsed command with additional parameters
+     * @throws KeeException if the input is invalid or missing required parameters
+     * @throws DateException if a date string is invalid or logically inconsistent
+     */
     public CommandPackage read(String msg) throws KeeException, DateException {
         msg = msg.trim();
         int firstSpace = msg.indexOf(' ');
@@ -70,6 +79,14 @@ public class Reader {
         }
     }
 
+    /**
+     * Parses a date string into a LocalDateTime object using the specified format.
+     *
+     * @param date the date string to parse
+     * @param format the expected date format
+     * @return the parsed LocalDateTime object
+     * @throws DateException if the given date cannot be parsed with the given format
+     */
     public static LocalDateTime parseDate(String date, String format) throws DateException {
         try {
             DateTimeFormatter input = DateTimeFormatter.ofPattern(format);
