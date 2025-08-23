@@ -61,4 +61,22 @@ public class UI {
         }
         System.out.println(CHAT_BORDER);
     }
+
+    /**
+     * Prints a list of matching tasks received from the findTask method in TaskManager
+     *
+     * @param tasks the list of matching tasks
+     */
+    public void printFoundTasks(ArrayList<Task> tasks) {
+        System.out.println(CHAT_BORDER);
+        if (!tasks.isEmpty()) {
+            System.out.println(INDENT + "Here are the matching tasks I found:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(INDENT + (i + 1) + ". " + tasks.get(i).toString());
+            }
+        } else {
+            System.out.println(INDENT + "Seems like there's no matches");
+        }
+        System.out.println(CHAT_BORDER);
+    }
 }
