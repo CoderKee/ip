@@ -1,6 +1,6 @@
-package Kee;
+package kee;
 
-import Kee.Task.Task;
+import kee.task.Task;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,10 @@
-package Kee;
+package kee;
 
-import Kee.Command.*;
-import Kee.Exception.DateException;
-import Kee.Exception.KeeException;
+import kee.command.Command;
+import kee.command.CommandPackage;
+
+import kee.exception.DateException;
+import kee.exception.KeeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +40,7 @@ public class Reader {
             }
             return new CommandPackage(Command.UNMARK, withoutCmd);
         case "add":
+            //FallThrough
         case "todo":
             if (withoutCmd.isEmpty()) {
                 throw new KeeException("Oops! You need to specify a task.");

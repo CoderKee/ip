@@ -1,8 +1,12 @@
-package Kee;
+package kee;
 
-import Kee.Command.CommandPackage;
-import Kee.Exception.*;
-import Kee.Task.Task;
+import kee.command.CommandPackage;
+
+import kee.exception.KeeException;
+import kee.exception.StorageException;
+import kee.exception.DateException;
+
+import kee.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;

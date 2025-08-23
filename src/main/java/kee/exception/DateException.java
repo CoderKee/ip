@@ -1,4 +1,4 @@
-package Kee.Exception;
+package kee.exception;
 
 public class DateException extends Exception {
     public DateException(String message) {

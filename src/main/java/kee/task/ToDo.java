@@ -1,4 +1,4 @@
-package Kee.Task;
+package kee.task;
 
 public class ToDo extends Task {
 

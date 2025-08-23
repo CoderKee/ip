@@ -1,19 +1,25 @@
-package Kee;
+package kee;
 
-import Kee.Exception.DateException;
-import Kee.Exception.StorageException;
-import Kee.Task.*;
+import kee.exception.DateException;
+import kee.exception.StorageException;
+
+import kee.task.Task;
+import kee.task.Event;
+import kee.task.ToDo;
+import kee.task.Deadline;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String path;
+    private final String path;
 
     /**
      * Constructs a Storage instance with the specified file path.
