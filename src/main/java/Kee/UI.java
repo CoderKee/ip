@@ -8,8 +8,14 @@ public class UI {
     public static final String INDENT = "     ";
     private static final String CHAT_BORDER = "     ____________________________________________________________";
 
+    /**
+     * Constructs a new UI instance.
+     */
     public UI() {}
 
+    /**
+     * Prints a greeting message when the chatbot starts.
+     */
     public void greet() {
         System.out.println(CHAT_BORDER);
         System.out.println(INDENT + "Hi! I'm Kee.");
@@ -17,18 +23,32 @@ public class UI {
         System.out.println(CHAT_BORDER);
     }
 
+    /**
+     * Prints a farewell message when the chatbot ends.
+     */
     public void exit() {
         System.out.println(CHAT_BORDER);
         System.out.println(INDENT + "Have a good day! ^.^");
         System.out.println(CHAT_BORDER);
     }
 
+    /**
+     * Prints a single message enclosed in a chat border.
+     *
+     * @param s the message to print
+     */
     public void print(String s) {
         System.out.println(CHAT_BORDER);
         System.out.println(INDENT + s);
         System.out.println(CHAT_BORDER);
     }
 
+    /**
+     * Prints the list of tasks with numbering.
+     * If no tasks are present, a separate message is displayed instead.
+     *
+     * @param tasks the list of tasks to display
+     */
     public void printTasks(ArrayList<Task> tasks) {
         System.out.println(CHAT_BORDER);
         if (!tasks.isEmpty()) {
