@@ -65,6 +65,11 @@ public class Reader {
                 throw new KeeException("Oops! You need to specify a task.");
             }
             return new CommandPackage(Command.DELETE, withoutCmd);
+        case "find":
+            if (withoutCmd.isEmpty()) {
+                throw new KeeException("Oops! You need to specify a task.");
+            }
+            return new CommandPackage(Command.FIND, withoutCmd);
         default:
             throw new KeeException("Oops! I do not recognise this command '" + cmd + "'");
         }

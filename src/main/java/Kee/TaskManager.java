@@ -37,7 +37,10 @@ public class TaskManager {
                 this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
                 break;
             case DELETE:
-                this.deleteEvent(cmd.getStr());
+                this.deleteTask(cmd.getStr());
+                break;
+            case FIND:
+                this.findTask(cmd.getStr());
                 break;
         }
     }
@@ -94,7 +97,7 @@ public class TaskManager {
         }
     }
 
-    public void deleteEvent(String msg) throws KeeException {
+    public void deleteTask(String msg) throws KeeException {
         try {
             int index = Integer.parseInt(msg);
             if (index > this.taskList.size()) {
@@ -122,6 +125,21 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Iterates through task list to find task description matching the keyword in msg
+     * Calls UI to print the task found
+     *
+     * @param msg keyword of the task description
+     */
+    public void findTask(String msg) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.getDescription().contains(msg)) {
+                tasks.add(task);
+            }
+        }
+        this.ui.printFoundTasks(tasks);
+    }
     public void output(String msg) {
         ui.print(msg);
     }
