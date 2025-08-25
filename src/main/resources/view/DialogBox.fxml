@@ -4,19 +4,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         spacing="8.0" style="-fx-background-color: #36393F;"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
-         <HBox.margin>
-            <Insets left="7.0" right="7.0" />
-         </HBox.margin>
-         <padding>
-            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-         </padding></Label>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+
+        <VBox alignment="TOP_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
+            <children>
+
+                <Label fx:id="username" style="-fx-font-weight: bold; -fx-font-size: 14px;"
+                       text="Username" textFill="#FFFFFF" />
+
+                <VBox style="-fx-background-color: #40444B; -fx-background-radius: 8px;">
+                    <children>
+                        <Label fx:id="dialog" minHeight="-Infinity" style="-fx-font-size: 14px;"
+                               text="Label" textFill="#f5f2f2" wrapText="true">
+                            <padding>
+                                <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="4.0" left="16.0" right="16.0" top="4.0" />
     </padding>
 </fx:root>

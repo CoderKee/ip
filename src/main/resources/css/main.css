@@ -1,31 +1,34 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
-    -fx-background-color: main-color;
+    -fx-background-color: #36393F      /* Create a looked-up color called "main-color" within root. */
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+    -fx-background-color: #40444B;
+    -fx-background-radius: 8px;
+    -fx-border-width: 0;
+    -fx-text-fill: #DCDDDE;
+    -fx-prompt-text-fill: #72767D;
+    -fx-font-size: 14px;
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-background-color: #5865F2;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
 }
 
-.button:hover {
-    -fx-background-color:cyan;
-    -fx-font-size: 18px;
-}
 
 .button:pressed {
-    -fx-background-color:orange;
-    -fx-font-size: 20px;
+    -fx-opacity: 0.6;
 }
 
 .scroll-pane,
 .scroll-pane .viewport {
-    -fx-background-color: transparent;
+    -fx-background: #36393F;
+    -fx-background-color: #36393F;
+    -fx-border-width: 0;
 }
 
 .scroll-bar {
@@ -34,7 +37,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #2F3136;
     -fx-background-radius: 1em;
 }
 
