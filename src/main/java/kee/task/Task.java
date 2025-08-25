@@ -8,7 +8,7 @@ public abstract class Task {
      * Constructs a new Task with the specified description.
      * The task is initially marked as not done.
      *
-     * @param description the description of the task
+     * @param description the description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -18,7 +18,7 @@ public abstract class Task {
     /**
      * Returns whether the task is completed.
      *
-     * @return true if the task is done, false otherwise
+     * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
         return this.isDone;
@@ -41,16 +41,16 @@ public abstract class Task {
     /**
      * Returns the description of the task.
      *
-     * @return the task description
+     * @return the task description.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns a string representation of the task for the UI
+     * Returns a string representation of the task for the UI.
      *
-     * @return the string representation of the task
+     * @return the string representation of the task.
      */
     @Override
     public String toString() {
@@ -60,7 +60,7 @@ public abstract class Task {
     /**
      * Returns a string representation to be written to Storage.
      *
-     * @return the string representation of the task
+     * @return the string representation of the task.
      */
     public String toData() {
         return (isDone ? "1" : "0") + " | " + description;

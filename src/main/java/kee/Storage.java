@@ -24,7 +24,7 @@ public class Storage {
     /**
      * Constructs a Storage instance with the specified file path.
      *
-     * @param path the file path for storing task data
+     * @param path the file path for storing task data.
      */
     public Storage(String path) {
         this.path = path;
@@ -35,8 +35,8 @@ public class Storage {
      * Loads tasks from the file specified by the field path.
      * If the file does not exist, it will attempt to create a new file.
      *
-     * @return an ArrayList of tasks loaded from the file
-     * @throws StorageException if the file content is invalid or cannot be read (i.e. corrupted)
+     * @return an ArrayList of tasks loaded from the file.
+     * @throws StorageException if the file content is invalid or cannot be read (i.e. corrupted).
      */
     public ArrayList<Task> loadFile() throws StorageException {
         File file = new File(path);
@@ -58,9 +58,9 @@ public class Storage {
     /**
      * Converts a line from the file into a Task object.
      *
-     * @param line a single line from the task file
-     * @return the corresponding Task object made from that line
-     * @throws StorageException if the line is invalid or cannot be parsed (i.e. corrupted)
+     * @param line a single line from the task file.
+     * @return the corresponding Task object made from that line.
+     * @throws StorageException if the line is invalid or cannot be parsed (i.e. corrupted).
      */
     public Task assignTask(String line) throws StorageException {
         String[] lines = line.split(" \\| ");
@@ -118,7 +118,7 @@ public class Storage {
      * Creates a new empty file at the specified path.
      * Also creates parent directories if they do not exist.
      *
-     * @throws StorageException if the file or directories cannot be created
+     * @throws StorageException if the file or directories cannot be created.
      */
     public void createNew() throws StorageException {
         try {

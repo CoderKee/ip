@@ -30,7 +30,7 @@ public class Event extends Task {
     /**
      * Returns the start time of the event.
      *
-     * @return the start time as a LocalDateTime
+     * @return the start time as a LocalDateTime.
      */
     public LocalDateTime getFrom() {
         return from;
@@ -39,7 +39,7 @@ public class Event extends Task {
     /**
      * Returns the end time of the event.
      *
-     * @return the end time as a LocalDateTime
+     * @return the end time as a LocalDateTime.
      */
     public LocalDateTime getTo() {
         return to;
