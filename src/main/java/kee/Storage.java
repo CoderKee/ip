@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class to read and write to a txt file for storage and retrieval.
+ */
 public class Storage {
     private final String path;
 

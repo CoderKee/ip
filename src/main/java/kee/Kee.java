@@ -10,6 +10,9 @@ import kee.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class to initialise the messaging capability of the chatbot.
+ */
 public class Kee {
     private static final String FILE_PATH = "./data/kee.txt";
     private final TaskManager manager;

@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
+/**
+ * A class to manage an array list of task
+ */
 public class TaskManager {
     private ArrayList<Task> taskList;
     private final UI ui;

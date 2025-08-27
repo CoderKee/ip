@@ -4,6 +4,9 @@ import kee.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A task to handle the response message to the user.
+ */
 public class UI {
     public static final String INDENT = "     ";
     private static final String CHAT_BORDER = "     ____________________________________________________________";

@@ -1,5 +1,8 @@
 package kee.task;
 
+/**
+ * An abstract class to represent a task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;

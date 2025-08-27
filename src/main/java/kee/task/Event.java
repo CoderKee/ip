@@ -3,6 +3,9 @@ package kee.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A task to represent an event task.
+ */
 public class Event extends Task {
     LocalDateTime from;
     LocalDateTime to;

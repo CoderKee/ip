@@ -3,6 +3,9 @@ package kee.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A class to represent a deadline task.
+ */
 public class Deadline extends Task {
     LocalDateTime by;
     String formatted;

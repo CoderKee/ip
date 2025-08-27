@@ -1,5 +1,8 @@
 package kee.task;
 
+/**
+ * A task to represent a to-do task.
+ */
 public class ToDo extends Task {
 
     /**

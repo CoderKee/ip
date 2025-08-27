@@ -1,5 +1,8 @@
 package kee.command;
 
+/**
+ * An enum class to represent a list of recognized commands.
+ */
 public enum Command {
     ADD,
     LIST,
