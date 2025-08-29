@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ReaderTest {
 
-
     @Test
     void read_listCommand_returnsListCommandPackage() throws KeeException, DateException {
         Reader reader = new Reader();
