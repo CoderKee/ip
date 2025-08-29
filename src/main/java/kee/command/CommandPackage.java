@@ -2,6 +2,9 @@ package kee.command;
 
 import java.time.LocalDateTime;
 
+/**
+ * A class to represent additional information to be passed to TaskManager together with the Command.
+ */
 public class CommandPackage {
     private final Command cmd;
     private final String str;

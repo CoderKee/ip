@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
+/**
+ * A class to manage an array list of task
+ */
 public class TaskManager {
     private ArrayList<Task> taskList;
     private final UI ui;
@@ -21,7 +24,7 @@ public class TaskManager {
     /**
      * Creates a new TaskManager with an empty task list.
      *
-     * @param ui the UI class used for displaying messages
+     * @param ui the UI class used for displaying messages.
      */
     public TaskManager(UI ui) {
         this.taskList = new ArrayList<>();
@@ -30,83 +33,84 @@ public class TaskManager {
 
     /**
      * Executes the given command by dispatching it to the appropriate handler based off Command type.
+     * Returns a reply to acknowledge completion of command.
      *
-     * @param cmd the command to execute
-     * @throws KeeException if the command cannot be executed
+     * @param cmd the command to execute.
+     * @throws KeeException if the command cannot be executed.
+     * @return message to acknowledge command.
      */
-    public void execute(CommandPackage cmd) throws KeeException {
+    public String execute(CommandPackage cmd) throws KeeException {
         switch (cmd.getCmd()) {
             case TODO:
-                this.addTodo(cmd.getStr());
-                break;
+                return this.addTodo(cmd.getStr());
             case MARK:
-                this.markTask(cmd.getStr(), true);
-                break;
+                return this.markTask(cmd.getStr(), true);
             case UNMARK:
-                this.markTask(cmd.getStr(), false);
-                break;
+                return this.markTask(cmd.getStr(), false);
             case LIST:
-                this.getTasks();
-                break;
+                return this.getTasks();
             case DEADLINE:
-                this.addDeadline(cmd.getStr(), cmd.getTo());
-                break;
+                return this.addDeadline(cmd.getStr(), cmd.getTo());
             case EVENT:
-                this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
-                break;
+                return this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
             case DELETE:
-                this.deleteTask(cmd.getStr());
-                break;
+                return this.deleteTask(cmd.getStr());
             case FIND:
-                this.findTask(cmd.getStr());
-                break;
+                return this.findTask(cmd.getStr());
+            default:
+                throw new KeeException("Oops, I can't seem to understand this command");
         }
     }
 
     /**
-     * Adds a Deadline task to the list.
+     * Adds a Deadline task to the list. Returns a message of acknowledgement.
      *
-     * @param msg  the description of the task
-     * @param end the deadline
+     * @param msg  the description of the task.
+     * @param end the deadline.
+     * @return message to acknowledge completion.
      */
-    public void addDeadline(String msg, LocalDateTime end) {
+    public String addDeadline(String msg, LocalDateTime end) {
         Task newTask = new Deadline(msg, end);
         this.taskList.add(newTask);
-        outputTask(newTask);
+        return outputTask(newTask);
     }
 
     /**
-     * Adds a ToDo task to the list.
+     * Adds a ToDo task to the list. Returns a message of acknowledgement.
      *
-     * @param msg the description of the task
+     * @param msg the description of the task.
+     * @return message to acknowledge completion.
      */
-    public void addTodo(String msg) {
+    public String addTodo(String msg) {
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
-        outputTask(newTask);
+        return outputTask(newTask);
     }
 
     /**
-     * Adds a Event task to the list.
+     * Adds a Event task to the list. Returns a message of acknowledgement.
      *
-     * @param msg the description of the task
-     * @param from the start time of the task
-     * @param to the end time of the task
+     * @param msg the description of the task.
+     * @param from the start time of the task.
+     * @param to the end time of the task.
+     * @return message to acknowledge completion.
      */
-    public void addEvent(String msg, LocalDateTime from, LocalDateTime to) {
+    public String addEvent(String msg, LocalDateTime from, LocalDateTime to) {
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
-        outputTask(newTask);
+        return outputTask(newTask);
     }
 
     /**
      * Marks or unmarks a task, identified by its index or description.
+     * Returns a message of acknowledgement.
      *
-     * @param msg  the task index (1-based) or description
-     * @param mark true to mark, false to unmark
-     * @throws KeeException if the task cannot be found
+     * @param msg  the task index (1-based) or description.
+     * @param mark true to mark, false to unmark.
+     * @throws KeeException if the task cannot be found.
+     * @return message to acknowledge completion.
      */
-    public void markTask(String msg, boolean mark) throws KeeException {
+    public String markTask(String msg, boolean mark) throws KeeException {
         Task current = null;
         try {
             int index = Integer.parseInt(msg);
@@ -132,21 +136,23 @@ public class TaskManager {
             }
             if (mark) {
                 current.mark();
-                output("Congratulations on completing:\n" + UI.INDENT + "  " + current.toString());
+                return "Congratulations on completing:\n" + current.toString();
             } else {
                 current.unmark();
-                output("Ok, I've unmarked:\n" + UI.INDENT + "  " + current.toString());
+                return "Ok, I've unmarked:\n" + current.toString();
             }
         }
     }
 
     /**
      * Deletes a task identified by index or description.
+     * Returns a message of acknowledgement.
      *
-     * @param msg the task index (1-based) or description
-     * @throws KeeException if the task cannot be found
+     * @param msg the task index (1-based) or description.
+     * @throws KeeException if the task cannot be found.
+     * @return message to acknowledge completion.
      */
-    public void deleteTask(String msg) throws KeeException {
+    public String deleteTask(String msg) throws KeeException {
         try {
             int index = Integer.parseInt(msg);
             if (index > this.taskList.size()) {
@@ -154,7 +160,7 @@ public class TaskManager {
             }
             Task current = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
-            deleteOutput(current);
+            return deleteOutput(current);
         } catch (NumberFormatException e) {
             int index = -1;
             Task current = null;
@@ -167,7 +173,7 @@ public class TaskManager {
             }
             if (index != -1) {
                 this.taskList.remove(index);
-                deleteOutput(current);
+                return deleteOutput(current);
             } else {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
@@ -175,57 +181,57 @@ public class TaskManager {
     }
 
     /**
-     * Iterates through task list to find task description matching the keyword in msg
-     * Calls UI to print the task found
+     * Iterates through task list to find task description matching the keyword in msg.
+     * Returns a message of the found task.
      *
-     * @param msg keyword of the task description
+     * @param msg keyword of the task description.
+     * @return message of found task.
      */
-    public void findTask(String msg) {
+    public String findTask(String msg) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (Task task : this.taskList) {
             if (task.getDescription().contains(msg)) {
                 tasks.add(task);
             }
         }
-        this.ui.printFoundTasks(tasks);
-    }
-    public void output(String msg) {
-        ui.print(msg);
+        return this.ui.printFoundTasks(tasks);
     }
 
     /**
-     * Outputs a message after adding a task
+     * Outputs a message after adding a task.
      *
-     * @param task the task that was added
+     * @param task the task that was added.
+     * @return message to acknowledge completion.
      */
-    public void outputTask(Task task) {
+    public String outputTask(Task task) {
         int length = this.taskList.size();
-        output("Okay, I've added:\n" + UI.INDENT
-                + "  " + task.toString() + "\n" + UI.INDENT
-                + "Now you've got " + length + " task(s)");
+        return "Okay, I've added:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
     }
 
     /**
-     * Outputs a message after deleting a task
+     * Outputs a message after deleting a task.
      *
-     * @param task the task that was deleted
+     * @param task the task that was deleted.
+     * @return message to acknowledge completion.
      */
-    public void deleteOutput(Task task) {
+    public String deleteOutput(Task task) {
         int length = this.taskList.size();
-        output("Okay, I've removed:\n" + UI.INDENT
-                + "  " + task.toString() + "\n" + UI.INDENT
-                + "Now you've got " + length + " task(s)");
-    }
-
-    /** Prints all tasks currently in the list by passing task list to UI. */
-    public void getTasks() {
-        ui.printTasks(this.taskList);
+        return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
     }
 
     /**
-     * Returns the list of tasks
+     * Returns all tasks currently in the list as message.
      *
-     * @return list of tasks as ArrayList<Task>
+     * @return list of tasks.
+     */
+    public String getTasks() {
+        return ui.printTasks(this.taskList);
+    }
+
+    /**
+     * Returns the list of tasks.
+     *
+     * @return list of tasks as ArrayList<Task>.
      */
     public ArrayList<Task> getList() {
         return taskList;
@@ -234,7 +240,7 @@ public class TaskManager {
     /**
      * Sets the task list to a new list of tasks, replacing the old one.
      *
-     * @param list the new list of tasks
+     * @param list the new list of tasks.
      */
     public void setTasks(ArrayList<Task> list) {
         this.taskList = list;

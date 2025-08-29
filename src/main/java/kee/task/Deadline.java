@@ -3,6 +3,9 @@ package kee.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A class to represent a deadline task.
+ */
 public class Deadline extends Task {
     LocalDateTime by;
     String formatted;
@@ -11,7 +14,7 @@ public class Deadline extends Task {
      * Constructs a new Deadline with the specified description and deadline.
      * The task is initially marked as not done.
      *
-     * @param description the description of the task
+     * @param description the description of the task.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -21,7 +24,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task
+     * Returns a string representation of the Deadline task.
      * {@inheritDoc}
      */
     @Override
@@ -30,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task to be written to Storage
+     * Returns a string representation of the Deadline task to be written to Storage.
      * {@inheritDoc}
      */
     @Override
@@ -39,9 +42,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the deadline of the task
+     * Returns the deadline of the task.
      *
-     * @return the deadline as LocalDateTime
+     * @return the deadline as LocalDateTime.
      */
     public LocalDateTime getBy() {
         return by;

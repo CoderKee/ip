@@ -9,8 +9,10 @@ import kee.exception.DateException;
 import kee.task.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * A class to initialise the messaging capability of the chatbot.
+ */
 public class Kee {
     private static final String FILE_PATH = "./data/kee.txt";
     private final TaskManager manager;
@@ -38,54 +40,51 @@ public class Kee {
     }
 
     /**
-     * Greets the user by invoking the UI greeting.
-     */
-    public void greet() {
-        this.ui.greet();
-    }
-
-    /**
      * Exits the chatbot.
      * Saves the current task list to storage and displays an exit message.
      * Invokes the UI bye message if successful, otherwise, returns a file saving error message.
      */
-    public void exit() {
+    public String exit() {
         try {
             this.storage.writeFile(this.manager.getList());
         } catch (StorageException e) {
-            this.ui.print(e.getMessage());
-        } finally {
-            this.ui.exit();
+            return e.getMessage();
         }
+        return this.ui.exit();
     }
 
     /**
-     * Starts the chat session with the user.
-     * Reads user input from the console, processes commands, and manages tasks based on the commands given.
-     * The session continues until the user types "bye".
+     * Loads the file from storage and greets the user.
+     * If file is corrupted, return an error message instead.
+     *
+     * @return a greeting message or an error message.
      */
-    public void startChat() {
-        Scanner scanner = new Scanner(System.in);
-        greet();
+    public String startChat() {
         try {
             ArrayList<Task> tasks = this.storage.loadFile();
             this.manager.setTasks(tasks);
         } catch (StorageException e) {
-            this.ui.print(e.getMessage());
+            return e.getMessage();
         }
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                exit();
-                break;
-            }
+        return this.ui.greet();
+    }
+
+    /**
+     * Returns a String response to user based off given inputs
+     *
+     * @param input user input
+     * @return response to input or error message
+     */
+    public String getResponse(String input) {
+        if (input.equalsIgnoreCase("bye")) {
+            return this.exit();
+        } else {
             try {
                 CommandPackage cmd = this.reader.read(input);
-                this.manager.execute(cmd);
+                return this.manager.execute(cmd);
             } catch (KeeException | DateException e) {
-                this.ui.print(e.getMessage());
+                return e.getMessage();
             }
         }
-        scanner.close();
     }
 }

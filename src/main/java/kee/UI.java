@@ -4,6 +4,9 @@ import kee.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A task to handle the response message to the user.
+ */
 public class UI {
     public static final String INDENT = "     ";
     private static final String CHAT_BORDER = "     ____________________________________________________________";
@@ -14,69 +17,58 @@ public class UI {
     public UI() {}
 
     /**
-     * Prints a greeting message when the chatbot starts.
-     */
-    public void greet() {
-        System.out.println(CHAT_BORDER);
-        System.out.println(INDENT + "Hi! I'm Kee.");
-        System.out.println(INDENT + "What can I help you with? :D");
-        System.out.println(CHAT_BORDER);
-    }
-
-    /**
-     * Prints a farewell message when the chatbot ends.
-     */
-    public void exit() {
-        System.out.println(CHAT_BORDER);
-        System.out.println(INDENT + "Have a good day! ^.^");
-        System.out.println(CHAT_BORDER);
-    }
-
-    /**
-     * Prints a single message enclosed in a chat border.
+     * Sends a greeting message when the chatbot starts.
      *
-     * @param s the message to print
+     * @return greeting message.
      */
-    public void print(String s) {
-        System.out.println(CHAT_BORDER);
-        System.out.println(INDENT + s);
-        System.out.println(CHAT_BORDER);
+    public String greet() {
+        return "Hi! I'm Kee.\nWhat can I help you with? :D";
     }
 
     /**
-     * Prints the list of tasks with numbering.
-     * If no tasks are present, a separate message is displayed instead.
+     * Sends a farewell message when the chatbot ends.
      *
-     * @param tasks the list of tasks to display
+     * @return a farewell message.
      */
-    public void printTasks(ArrayList<Task> tasks) {
-        System.out.println(CHAT_BORDER);
+    public String exit() {
+        return("Have a good day! ^.^");
+    }
+
+    /**
+     * Returns the list of tasks with numbering.
+     * If no tasks are present, a separate message is returned instead.
+     *
+     * @param tasks the list of tasks to display.
+     * @return a message containing the list of tasks or no task message.
+     */
+    public String printTasks(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
-            System.out.println(INDENT + "Here are your tasks:");
+            StringBuilder msg = new StringBuilder("Here are your tasks:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(INDENT + (i + 1) + ". " + tasks.get(i).toString());
+                msg.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
             }
+            return msg.toString();
         } else {
-            System.out.println(INDENT + "You have not added any tasks yet");
+            return "You have not added any tasks yet";
         }
-        System.out.println(CHAT_BORDER);
     }
 
     /**
-     * Prints a list of matching tasks received from the findTask method in TaskManager
+     * Returns a list of matching tasks received from the findTask method in TaskManager
      *
      * @param tasks the list of matching tasks
+     * @return a message containing the list of found tasks
      */
-    public void printFoundTasks(ArrayList<Task> tasks) {
-        System.out.println(CHAT_BORDER);
+    public String printFoundTasks(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
-            System.out.println(INDENT + "Here are the matching tasks I found:");
+            StringBuilder msg = new StringBuilder("Here are the matching tasks I found:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(INDENT + (i + 1) + ". " + tasks.get(i).toString());
+                msg.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
             }
+            return msg.toString();
         } else {
-            System.out.println(INDENT + "Seems like there's no matches");
+            return "Seems like there's no matches";
         }
-        System.out.println(CHAT_BORDER);
+
     }
 }
