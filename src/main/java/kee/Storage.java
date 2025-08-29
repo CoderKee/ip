@@ -1,22 +1,19 @@
 package kee;
 
-import kee.exception.DateException;
-import kee.exception.StorageException;
-
-import kee.task.Task;
-import kee.task.Event;
-import kee.task.ToDo;
-import kee.task.Deadline;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import kee.exception.DateException;
+import kee.exception.StorageException;
+import kee.task.Deadline;
+import kee.task.Event;
+import kee.task.Task;
+import kee.task.ToDo;
 
 /**
  * A class to read and write to a txt file for storage and retrieval.

@@ -1,8 +1,8 @@
 package kee;
 
-import kee.task.Task;
-
 import java.util.ArrayList;
+
+import kee.task.Task;
 
 /**
  * A task to handle the response message to the user.
@@ -31,7 +31,7 @@ public class UI {
      * @return a farewell message.
      */
     public String exit() {
-        return("Have a good day! ^.^");
+        return "Have a good day! ^.^";
     }
 
     /**

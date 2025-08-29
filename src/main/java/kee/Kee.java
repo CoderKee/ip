@@ -1,14 +1,12 @@
 package kee;
 
-import kee.command.CommandPackage;
+import java.util.ArrayList;
 
+import kee.command.CommandPackage;
+import kee.exception.DateException;
 import kee.exception.KeeException;
 import kee.exception.StorageException;
-import kee.exception.DateException;
-
 import kee.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * A class to initialise the messaging capability of the chatbot.
@@ -19,14 +17,6 @@ public class Kee {
     private final Reader reader;
     private final Storage storage;
     private final UI ui;
-
-    /**
-     * The main entry point for the Kee chatbot application.
-     */
-    public static void main(String[] args) {
-        Kee chatBot = new Kee();
-        chatBot.startChat();
-    }
 
     /**
      * Constructs a new Kee chatbot instance.

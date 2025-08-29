@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
  * A task to represent an event task.
  */
 public class Event extends Task {
-    LocalDateTime from;
-    LocalDateTime to;
-    String fromFormatted;
-    String toFormatted;
+    private LocalDateTime from;
+    private LocalDateTime to;
+    private String fromFormatted;
+    private String toFormatted;
 
     /**
      * Constructs a new Event with the specified description, start time, and end time.

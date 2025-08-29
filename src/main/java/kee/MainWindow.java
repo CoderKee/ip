@@ -25,6 +25,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/confused_emoji.png"));
     private Image keeImage = new Image(this.getClass().getResourceAsStream("/images/cool_emoji.png"));
 
+    /**
+     * Ensures that the dialogContainer covers the entirety of scroll pane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

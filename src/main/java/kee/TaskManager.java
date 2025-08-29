@@ -1,17 +1,15 @@
 package kee;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import kee.command.CommandPackage;
-
 import kee.exception.KeeException;
-
-import kee.task.Task;
-import kee.task.ToDo;
 import kee.task.Deadline;
 import kee.task.Event;
+import kee.task.Task;
+import kee.task.ToDo;
 
-import java.time.LocalDateTime;
-
-import java.util.ArrayList;
 
 /**
  * A class to manage an array list of task
@@ -36,29 +34,29 @@ public class TaskManager {
      * Returns a reply to acknowledge completion of command.
      *
      * @param cmd the command to execute.
-     * @throws KeeException if the command cannot be executed.
      * @return message to acknowledge command.
+     * @throws KeeException if the command cannot be executed.
      */
     public String execute(CommandPackage cmd) throws KeeException {
         switch (cmd.getCmd()) {
-            case TODO:
-                return this.addTodo(cmd.getStr());
-            case MARK:
-                return this.markTask(cmd.getStr(), true);
-            case UNMARK:
-                return this.markTask(cmd.getStr(), false);
-            case LIST:
-                return this.getTasks();
-            case DEADLINE:
-                return this.addDeadline(cmd.getStr(), cmd.getTo());
-            case EVENT:
-                return this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
-            case DELETE:
-                return this.deleteTask(cmd.getStr());
-            case FIND:
-                return this.findTask(cmd.getStr());
-            default:
-                throw new KeeException("Oops, I can't seem to understand this command");
+        case TODO:
+            return this.addTodo(cmd.getStr());
+        case MARK:
+            return this.markTask(cmd.getStr(), true);
+        case UNMARK:
+            return this.markTask(cmd.getStr(), false);
+        case LIST:
+            return this.getTasks();
+        case DEADLINE:
+            return this.addDeadline(cmd.getStr(), cmd.getTo());
+        case EVENT:
+            return this.addEvent(cmd.getStr(), cmd.getFrom(), cmd.getTo());
+        case DELETE:
+            return this.deleteTask(cmd.getStr());
+        case FIND:
+            return this.findTask(cmd.getStr());
+        default:
+            throw new KeeException("Oops, I can't seem to understand this command");
         }
     }
 
@@ -107,8 +105,8 @@ public class TaskManager {
      *
      * @param msg  the task index (1-based) or description.
      * @param mark true to mark, false to unmark.
-     * @throws KeeException if the task cannot be found.
      * @return message to acknowledge completion.
+     * @throws KeeException if the task cannot be found.
      */
     public String markTask(String msg, boolean mark) throws KeeException {
         Task current = null;
@@ -149,8 +147,8 @@ public class TaskManager {
      * Returns a message of acknowledgement.
      *
      * @param msg the task index (1-based) or description.
-     * @throws KeeException if the task cannot be found.
      * @return message to acknowledge completion.
+     * @throws KeeException if the task cannot be found.
      */
     public String deleteTask(String msg) throws KeeException {
         try {
@@ -231,7 +229,7 @@ public class TaskManager {
     /**
      * Returns the list of tasks.
      *
-     * @return list of tasks as ArrayList<Task>.
+     * @return list of tasks as ArrayList of tasks.
      */
     public ArrayList<Task> getList() {
         return taskList;
