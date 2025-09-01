@@ -42,6 +42,7 @@ public class UI {
      * @return a message containing the list of tasks or no task message.
      */
     public String printTasks(ArrayList<Task> tasks) {
+        assert tasks != null;
         if (!tasks.isEmpty()) {
             StringBuilder msg = new StringBuilder("Here are your tasks:");
             for (int i = 0; i < tasks.size(); i++) {
@@ -60,6 +61,7 @@ public class UI {
      * @return a message containing the list of found tasks
      */
     public String printFoundTasks(ArrayList<Task> tasks) {
+        assert tasks != null;
         if (!tasks.isEmpty()) {
             StringBuilder msg = new StringBuilder("Here are the matching tasks I found:");
             for (int i = 0; i < tasks.size(); i++) {

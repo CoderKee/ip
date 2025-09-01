@@ -38,6 +38,7 @@ public class TaskManager {
      * @throws KeeException if the command cannot be executed.
      */
     public String execute(CommandPackage cmd) throws KeeException {
+        assert cmd != null;
         switch (cmd.getCmd()) {
         case TODO:
             return this.addTodo(cmd.getStr());
@@ -68,9 +69,11 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addDeadline(String msg, LocalDateTime end) {
+        assert msg != null && !msg.isEmpty();
+        assert end != null;
         Task newTask = new Deadline(msg, end);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
@@ -80,9 +83,10 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addTodo(String msg) {
+        assert msg != null && !msg.isEmpty();
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
@@ -94,9 +98,11 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addEvent(String msg, LocalDateTime from, LocalDateTime to) {
+        assert msg != null && !msg.isEmpty();
+        assert from != null && to != null;
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
@@ -128,18 +134,18 @@ public class TaskManager {
             if (index == -1) {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
-        } finally {
-            if (current == null) {
-                throw new KeeException("Oops! Task not found: " + msg);
-            }
-            if (mark) {
-                current.mark();
-                return "Congratulations on completing:\n" + current.toString();
-            } else {
-                current.unmark();
-                return "Ok, I've unmarked:\n" + current.toString();
-            }
         }
+        if (current == null) {
+            throw new KeeException("Oops! Task not found: " + msg);
+        }
+        if (mark) {
+            current.mark();
+            return "Congratulations on completing:\n" + current.toString();
+        } else {
+            current.unmark();
+            return "Ok, I've unmarked:\n" + current.toString();
+        }
+
     }
 
     /**
@@ -151,17 +157,17 @@ public class TaskManager {
      * @throws KeeException if the task cannot be found.
      */
     public String deleteTask(String msg) throws KeeException {
+        Task current;
         try {
             int index = Integer.parseInt(msg);
             if (index > this.taskList.size()) {
                 throw new KeeException("Oops! It seems that there is no task numbered: " + msg);
             }
-            Task current = this.taskList.get(index - 1);
+            current = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
-            return deleteOutput(current);
         } catch (NumberFormatException e) {
             int index = -1;
-            Task current = null;
+            current = null;
             for (int i = 0; i < this.taskList.size(); i++) {
                 if (this.taskList.get(i).getDescription().equals(msg)) {
                     index = i;
@@ -171,11 +177,12 @@ public class TaskManager {
             }
             if (index != -1) {
                 this.taskList.remove(index);
-                return deleteOutput(current);
             } else {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
         }
+        assert current != null;
+        return getDeleteMessage(current);
     }
 
     /**
@@ -201,7 +208,8 @@ public class TaskManager {
      * @param task the task that was added.
      * @return message to acknowledge completion.
      */
-    public String outputTask(Task task) {
+    public String getAddedMessage(Task task) {
+        assert task != null;
         int length = this.taskList.size();
         return "Okay, I've added:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
     }
@@ -212,7 +220,8 @@ public class TaskManager {
      * @param task the task that was deleted.
      * @return message to acknowledge completion.
      */
-    public String deleteOutput(Task task) {
+    public String getDeleteMessage(Task task) {
+        assert task != null;
         int length = this.taskList.size();
         return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
     }
