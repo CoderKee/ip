@@ -12,7 +12,7 @@ import kee.task.ToDo;
 
 
 /**
- * A class to manage an array list of task
+ * Manages a list of tasks and executes commands related to task list.
  */
 public class TaskManager {
     private ArrayList<Task> taskList;
@@ -70,11 +70,11 @@ public class TaskManager {
     public String addDeadline(String msg, LocalDateTime end) {
         Task newTask = new Deadline(msg, end);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
-     * Adds a ToDo task to the list. Returns a message of acknowledgement.
+     * Adds a To-Do task to the list. Returns a message of acknowledgement.
      *
      * @param msg the description of the task.
      * @return message to acknowledge completion.
@@ -82,7 +82,7 @@ public class TaskManager {
     public String addTodo(String msg) {
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
@@ -96,7 +96,7 @@ public class TaskManager {
     public String addEvent(String msg, LocalDateTime from, LocalDateTime to) {
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
-        return outputTask(newTask);
+        return getAddedMessage(newTask);
     }
 
     /**
@@ -128,18 +128,18 @@ public class TaskManager {
             if (index == -1) {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
-        } finally {
-            if (current == null) {
-                throw new KeeException("Oops! Task not found: " + msg);
-            }
-            if (mark) {
-                current.mark();
-                return "Congratulations on completing:\n" + current.toString();
-            } else {
-                current.unmark();
-                return "Ok, I've unmarked:\n" + current.toString();
-            }
         }
+        if (current == null) {
+            throw new KeeException("Oops! Task not found: " + msg);
+        }
+        if (mark) {
+            current.mark();
+            return "Congratulations on completing:\n" + current.toString();
+        } else {
+            current.unmark();
+            return "Ok, I've unmarked:\n" + current.toString();
+        }
+
     }
 
     /**
@@ -158,7 +158,7 @@ public class TaskManager {
             }
             Task current = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
-            return deleteOutput(current);
+            return getDeleteMessage(current);
         } catch (NumberFormatException e) {
             int index = -1;
             Task current = null;
@@ -171,7 +171,7 @@ public class TaskManager {
             }
             if (index != -1) {
                 this.taskList.remove(index);
-                return deleteOutput(current);
+                return getDeleteMessage(current);
             } else {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
@@ -201,9 +201,9 @@ public class TaskManager {
      * @param task the task that was added.
      * @return message to acknowledge completion.
      */
-    public String outputTask(Task task) {
+    public String getAddedMessage(Task task) {
         int length = this.taskList.size();
-        return "Okay, I've added:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+        return this.ui.getAddedMessage(task, length);
     }
 
     /**
@@ -212,9 +212,9 @@ public class TaskManager {
      * @param task the task that was deleted.
      * @return message to acknowledge completion.
      */
-    public String deleteOutput(Task task) {
+    public String getDeleteMessage(Task task) {
         int length = this.taskList.size();
-        return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+        return this.ui.getDeleteMessage(task, length);
     }
 
     /**

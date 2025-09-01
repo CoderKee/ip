@@ -9,7 +9,7 @@ import kee.exception.StorageException;
 import kee.task.Task;
 
 /**
- * A class to initialise the messaging capability of the chatbot.
+ * Serves as the central controller that ties all the other major components.
  */
 public class Kee {
     private static final String FILE_PATH = "./data/kee.txt";
