@@ -38,6 +38,7 @@ public class TaskManager {
      * @throws KeeException if the command cannot be executed.
      */
     public String execute(CommandPackage cmd) throws KeeException {
+        assert cmd != null;
         switch (cmd.getCmd()) {
         case TODO:
             return this.addTodo(cmd.getStr());
@@ -68,6 +69,8 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addDeadline(String msg, LocalDateTime end) {
+        assert msg != null && !msg.isEmpty();
+        assert end != null;
         Task newTask = new Deadline(msg, end);
         this.taskList.add(newTask);
         return getAddedMessage(newTask);
@@ -80,6 +83,7 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addTodo(String msg) {
+        assert msg != null && !msg.isEmpty();
         Task newTask = new ToDo(msg);
         this.taskList.add(newTask);
         return getAddedMessage(newTask);
@@ -94,6 +98,8 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String addEvent(String msg, LocalDateTime from, LocalDateTime to) {
+        assert msg != null && !msg.isEmpty();
+        assert from != null && to != null;
         Task newTask = new Event(msg, from, to);
         this.taskList.add(newTask);
         return getAddedMessage(newTask);
@@ -151,17 +157,17 @@ public class TaskManager {
      * @throws KeeException if the task cannot be found.
      */
     public String deleteTask(String msg) throws KeeException {
+        Task current;
         try {
             int index = Integer.parseInt(msg);
             if (index > this.taskList.size()) {
                 throw new KeeException("Oops! It seems that there is no task numbered: " + msg);
             }
-            Task current = this.taskList.get(index - 1);
+            current = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
-            return getDeleteMessage(current);
         } catch (NumberFormatException e) {
             int index = -1;
-            Task current = null;
+            current = null;
             for (int i = 0; i < this.taskList.size(); i++) {
                 if (this.taskList.get(i).getDescription().equals(msg)) {
                     index = i;
@@ -171,11 +177,12 @@ public class TaskManager {
             }
             if (index != -1) {
                 this.taskList.remove(index);
-                return getDeleteMessage(current);
             } else {
                 throw new KeeException("Oops! Task not found: " + msg);
             }
         }
+        assert current != null;
+        return getDeleteMessage(current);
     }
 
     /**
@@ -202,6 +209,7 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String getAddedMessage(Task task) {
+        assert task != null;
         int length = this.taskList.size();
         return this.ui.getAddedMessage(task, length);
     }
@@ -213,6 +221,7 @@ public class TaskManager {
      * @return message to acknowledge completion.
      */
     public String getDeleteMessage(Task task) {
+        assert task != null;
         int length = this.taskList.size();
         return this.ui.getDeleteMessage(task, length);
     }

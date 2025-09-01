@@ -26,6 +26,7 @@ public class Reader {
      * @throws DateException if a date string is invalid or logically inconsistent.
      */
     public CommandPackage read(String msg) throws KeeException, DateException {
+        assert msg != null;
         msg = msg.trim();
         int firstSpace = msg.indexOf(' ');
         String cmd = (firstSpace == -1) ? msg : msg.substring(0, firstSpace);
@@ -66,6 +67,8 @@ public class Reader {
      * @throws DateException if the given date cannot be parsed with the given format.
      */
     public static LocalDateTime parseDate(String date, String format) throws DateException {
+        assert date != null && !date.isEmpty();
+        assert format != null && !format.isEmpty();
         try {
             DateTimeFormatter input = DateTimeFormatter.ofPattern(format);
             return LocalDateTime.parse(date, input);
