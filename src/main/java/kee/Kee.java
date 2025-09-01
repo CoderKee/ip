@@ -38,6 +38,7 @@ public class Kee {
         try {
             this.storage.writeFile(this.manager.getList());
         } catch (StorageException e) {
+            assert !e.getMessage().isEmpty();
             return e.getMessage();
         }
         return this.ui.exit();
@@ -54,6 +55,7 @@ public class Kee {
             ArrayList<Task> tasks = this.storage.loadFile();
             this.manager.setTasks(tasks);
         } catch (StorageException e) {
+            assert !e.getMessage().isEmpty();
             return e.getMessage();
         }
         return this.ui.greet();
@@ -73,6 +75,7 @@ public class Kee {
                 CommandPackage cmd = this.reader.read(input);
                 return this.manager.execute(cmd);
             } catch (KeeException | DateException e) {
+                assert !e.getMessage().isEmpty();
                 return e.getMessage();
             }
         }
