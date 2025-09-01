@@ -1,7 +1,7 @@
 package kee.task;
 
 /**
- * A task to represent a to-do task.
+ * Represents a To-Do task with no set start time or end time.
  */
 public class ToDo extends Task {
 

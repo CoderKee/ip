@@ -12,7 +12,7 @@ import kee.task.ToDo;
 
 
 /**
- * A class to manage an array list of task
+ * Manages a list of tasks and executes commands related to task list.
  */
 public class TaskManager {
     private ArrayList<Task> taskList;
@@ -77,7 +77,7 @@ public class TaskManager {
     }
 
     /**
-     * Adds a ToDo task to the list. Returns a message of acknowledgement.
+     * Adds a To-Do task to the list. Returns a message of acknowledgement.
      *
      * @param msg the description of the task.
      * @return message to acknowledge completion.
@@ -211,7 +211,7 @@ public class TaskManager {
     public String getAddedMessage(Task task) {
         assert task != null;
         int length = this.taskList.size();
-        return "Okay, I've added:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+        return this.ui.getAddedMessage(task, length);
     }
 
     /**
@@ -223,7 +223,7 @@ public class TaskManager {
     public String getDeleteMessage(Task task) {
         assert task != null;
         int length = this.taskList.size();
-        return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+        return this.ui.getDeleteMessage(task, length);
     }
 
     /**

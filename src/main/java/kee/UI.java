@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import kee.task.Task;
 
 /**
- * A task to handle the response message to the user.
+ * Handles responses to the user.
  */
 public class UI {
     public static final String INDENT = "     ";
@@ -72,5 +72,27 @@ public class UI {
             return "Seems like there's no matches";
         }
 
+    }
+
+    /**
+     * Returns a message to acknowledge the addition of task
+     *
+     * @param task the added task
+     * @param length the length of the task list
+     * @return a message to acknowledge the addition of task
+     */
+    public String getAddedMessage(Task task, int length) {
+        return "Okay, I've added:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+    }
+
+    /**
+     * Returns a message to acknowledge the deletion of task
+     *
+     * @param task the added task
+     * @param length the length of the task list
+     * @return a message to acknowledge the deletion of task
+     */
+    public String getDeleteMessage(Task task, int length) {
+        return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
     }
 }

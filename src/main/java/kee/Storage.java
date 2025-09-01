@@ -16,7 +16,7 @@ import kee.task.Task;
 import kee.task.ToDo;
 
 /**
- * A class to read and write to a txt file for storage and retrieval.
+ * Reads and writes to a .txt file for storage and retrieval.
  */
 public class Storage {
     private final String path;
@@ -76,31 +76,10 @@ public class Storage {
             added = new ToDo(lines[2]);
             break;
         case "D":
-            if (lines.length != 4) {
-                throw new StorageException("Oops! This file is not what I expected.");
-            }
-            try {
-                LocalDateTime deadline = Reader.parseDate(lines[3], "d MMMM yyyy h:mma");
-                added = new Deadline(lines[2], deadline);
-            } catch (DateException e) {
-                throw new StorageException("Oops! This file is not what I expected.");
-            }
+            added = loadDeadlineTask(lines);
             break;
         case "E":
-            if (lines.length != 4) {
-                throw new StorageException("Oops! This file is not what I expected.");
-            }
-            try {
-                String[] time = lines[3].split("-");
-                if (time.length != 2) {
-                    throw new StorageException("Oops! This file is not what I expected.");
-                }
-                LocalDateTime from = Reader.parseDate(time[0], "d MMMM yyyy h:mma");
-                LocalDateTime to = Reader.parseDate(time[1], "d MMMM yyyy h:mma");
-                added = new Event(lines[2], from, to);
-            } catch (DateException e) {
-                throw new StorageException("Oops! This file is not what I expected.");
-            }
+            added = loadEventTask(lines);
             break;
         default:
             throw new StorageException("Oops! This file is not what I expected.");
@@ -152,5 +131,52 @@ public class Storage {
         } catch (IOException e) {
             throw new StorageException("Oops! I can't seem to save your data.");
         }
+    }
+
+    /**
+     * Converts a line of saved data into a Deadline task.
+     *
+     * @param lines the split line from the storage file.
+     * @return a Deadline task constructed from the given data.
+     * @throws StorageException if the data is corrupted.
+     */
+    private static Task loadDeadlineTask(String[] lines) throws StorageException {
+        Task added;
+        if (lines.length != 4) {
+            throw new StorageException("Oops! This file is not what I expected.");
+        }
+        try {
+            LocalDateTime deadline = Reader.parseDate(lines[3], "d MMMM yyyy h:mma");
+            added = new Deadline(lines[2], deadline);
+        } catch (DateException e) {
+            throw new StorageException("Oops! This file is not what I expected.");
+        }
+        return added;
+    }
+
+    /**
+     * Converts a line of saved data into an Event task.
+     *
+     * @param lines the split line from the storage file.
+     * @return an Event task constructed from the given data.
+     * @throws StorageException if the data is corrupted.
+     */
+    private static Task loadEventTask(String[] lines) throws StorageException {
+        Task added;
+        if (lines.length != 4) {
+            throw new StorageException("Oops! This file is not what I expected.");
+        }
+        try {
+            String[] time = lines[3].split("-");
+            if (time.length != 2) {
+                throw new StorageException("Oops! This file is not what I expected.");
+            }
+            LocalDateTime from = Reader.parseDate(time[0], "d MMMM yyyy h:mma");
+            LocalDateTime to = Reader.parseDate(time[1], "d MMMM yyyy h:mma");
+            added = new Event(lines[2], from, to);
+        } catch (DateException e) {
+            throw new StorageException("Oops! This file is not what I expected.");
+        }
+        return added;
     }
 }
