@@ -31,12 +31,15 @@ public class Reader {
         int firstSpace = msg.indexOf(' ');
         String cmd = (firstSpace == -1) ? msg : msg.substring(0, firstSpace);
         String withoutCmd = (firstSpace == -1) ? "" : msg.substring(firstSpace + 1);
-        if (withoutCmd.isEmpty() && !cmd.equalsIgnoreCase("list")) {
+        if (withoutCmd.isEmpty() && !cmd.equalsIgnoreCase("list")
+                                 && !cmd.equalsIgnoreCase("remind")) {
             throw new KeeException("Oops! You need to specify a task.");
         }
         switch (cmd.toLowerCase()) {
         case "list":
             return new CommandPackage(Command.LIST);
+        case "remind":
+            return new CommandPackage(Command.REMIND);
         case "mark":
             return new CommandPackage(Command.MARK, withoutCmd);
         case "unmark":
@@ -49,7 +52,7 @@ public class Reader {
             return getDeadlinePackage(withoutCmd);
         case "event":
             return getEventPackage(withoutCmd);
-            case "delete":
+        case "delete":
             return new CommandPackage(Command.DELETE, withoutCmd);
         case "find":
             return new CommandPackage(Command.FIND, withoutCmd);
@@ -92,11 +95,13 @@ public class Reader {
         if (eDescription.isEmpty() || eParts1.length == 1 || eParts1[1].isEmpty()) {
             throw new KeeException("Oops! Did you forget to specify a task or start time?");
         }
+
         String[] eParts2 = eParts1[1].split(" /to ", 2);
         String from = eParts2[0];
         if (from.isEmpty() || eParts2.length == 1 || eParts2[1].isEmpty()) {
             throw new KeeException("Oops! Did you forget to specify a start time or end time?");
         }
+
         String to = eParts2[1];
         LocalDateTime fromTime = parseDate(from, "d/M/yyyy HH:mm");
         LocalDateTime toTime = parseDate(to, "d/M/yyyy HH:mm");
@@ -120,6 +125,7 @@ public class Reader {
         if (description.isEmpty() || parts1.length == 1 || parts1[1].isEmpty()) {
             throw new KeeException("Oops! Did you forget to specify a task or deadline?");
         }
+
         LocalDateTime deadline = parseDate(parts1[1], "d/M/yyyy HH:mm");
         return new CommandPackage(Command.DEADLINE, description, deadline);
     }
