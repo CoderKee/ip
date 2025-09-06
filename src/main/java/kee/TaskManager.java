@@ -1,5 +1,6 @@
 package kee;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -56,6 +57,8 @@ public class TaskManager {
             return this.deleteTask(cmd.getStr());
         case FIND:
             return this.findTask(cmd.getStr());
+        case REMIND:
+            return this.remindTask();
         default:
             throw new KeeException("Oops, I can't seem to understand this command");
         }
@@ -203,6 +206,34 @@ public class TaskManager {
     }
 
     /**
+     * Iterates through task list and filters out tasks that are ending today (based on system date).
+     *
+     * @return String message containing the list of tasks.
+     */
+    public String remindTask() {
+        ArrayList<Task> remindList = new ArrayList<>();
+        for (Task task : this.taskList) {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime deadline;
+            if (task instanceof ToDo) {
+                continue;
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                deadline = event.getTo();
+            } else {
+                assert task instanceof Deadline;
+                Deadline deadlineTask = (Deadline) task;
+                deadline = deadlineTask.getBy();
+            }
+            assert deadline != null;
+            if (deadline.toLocalDate().equals(LocalDate.now())) {
+                remindList.add(task);
+            }
+        }
+        return this.ui.getReminders(remindList);
+    }
+
+    /**
      * Outputs a message after adding a task.
      *
      * @param task the task that was added.
@@ -229,7 +260,7 @@ public class TaskManager {
     /**
      * Returns all tasks currently in the list as message.
      *
-     * @return list of tasks.
+     * @return String message containing the list of tasks.
      */
     public String getTasks() {
         return ui.printTasks(this.taskList);

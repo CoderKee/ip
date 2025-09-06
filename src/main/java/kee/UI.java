@@ -8,8 +8,6 @@ import kee.task.Task;
  * Handles responses to the user.
  */
 public class UI {
-    public static final String INDENT = "     ";
-    private static final String CHAT_BORDER = "     ____________________________________________________________";
 
     /**
      * Constructs a new UI instance.
@@ -62,16 +60,14 @@ public class UI {
      */
     public String printFoundTasks(ArrayList<Task> tasks) {
         assert tasks != null;
-        if (!tasks.isEmpty()) {
-            StringBuilder msg = new StringBuilder("Here are the matching tasks I found:");
-            for (int i = 0; i < tasks.size(); i++) {
-                msg.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
-            }
-            return msg.toString();
-        } else {
+        if (tasks.isEmpty()) {
             return "Seems like there's no matches";
         }
-
+        StringBuilder msg = new StringBuilder("Here are the matching tasks I found:");
+        for (int i = 0; i < tasks.size(); i++) {
+            msg.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
+        }
+        return msg.toString();
     }
 
     /**
@@ -94,5 +90,23 @@ public class UI {
      */
     public String getDeleteMessage(Task task, int length) {
         return "Okay, I've removed:\n" + task.toString() + "\n" + "Now you've got " + length + " task(s)";
+    }
+
+    /**
+     * Returns a String message containing the list of tasks with upcoming deadlines.
+     *
+     * @param tasks the list of tasks with upcoming deadlines.
+     * @return a String message containing the list of tasks.
+     */
+    public String getReminders(ArrayList<Task> tasks) {
+        assert tasks != null;
+        if (tasks.isEmpty()) {
+            return "Seems like there's no deadline for today!";
+        }
+        StringBuilder msg = new StringBuilder("Here are your deadlines for today:");
+        for (int i = 0; i < tasks.size(); i++) {
+            msg.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
+        }
+        return msg.toString();
     }
 }
