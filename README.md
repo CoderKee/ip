@@ -1,26 +1,176 @@
-# Duke project template
+# Kee User Guide 😎
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Kee is an ultra-friendly graphical interface user(GUI) app that 
+helps you manage your tasks with ease.
 
-## Setting up in Intellij
+To start using Kee, follow these steps:
+1. Go to the [release page](https://github.com/CoderKee/ip/releases/tag/A-Jar).
+2. Copy the `jar` file into an empty folder.
+3. Open a command window in that folder.
+4. Run the command:
+```sh
+   java -jar "{filename}.jar"
+```
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Features 🛠️
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Kee is equipped with multiple features that make task management simple and intuitive:
+- [x] Create new tasks
+- [x] List tasks
+- [x] Mark and unmark tasks
+- [x] Delete tasks
+- [x] Find tasks
+- [x] Remind upcoming deadlines
+- [x] Store and loading tasks
+
+## Adding new tasks
+
+Kee separates tasks into 3 categories
+
+### Todo tasks
+
+Todo task refers to task that do not have deadlines/start time/end time
+
+Command: ``todo <task>``
+
+Example:
+```
+> todo code
+Okay I've added:
+[T][] code
+Now you've got 1 task(s)
+```
+
+### Deadline tasks
+
+Deadline task refers to task that has a deadline
+
+Command: ``deadline <task> /by <deadline>``
+
+Note that <deadline> must be in the format ``d/M/yyyy HH:mm``
+
+Example:
+```
+> deadline homework /by 8/9/2025 18:00
+Okay I've added:
+[D][] homework (by: 8 September 2025 6:00pm)
+Now you've got 2 task(s)
+```
+
+### Event tasks
+
+Event task refers to task that has a start time and end time
+
+Command: ``event <task> /from <start> /to <end>``
+
+Note that <start> and <end> must be in the format ``d/M/yyyy HH:mm``
+
+Example:
+```
+> event lecture /from 9/9/2025 12:00 /to 9/9/2025 14:00
+Okay I've added:
+[E][] lecture (by: 9 September 2025 
+12:00pm to: 9 September 2025 2:00 pm)
+Now you've got 3 task(s)
+```
+
+## Listing tasks
+
+Listing tasks returns a numbered list of all tasks
+
+Command: ``list``
+
+Example:
+```
+> list
+Here are your tasks:
+1. [T][] code
+2. [D][] homework (by: 8 September 2025 6:00pm)
+3. [E][] lecture (by: 9 September 2025 
+12:00pm to: 9 September 2025 2:00 pm)
+```
+
+## Marking tasks
+
+Marking a task indicates that the task is completed
+
+Command: ``mark <task number/ task name>``
+
+Example:
+```
+> mark 1
+Congratulations on completing:
+[T][X] code
+```
+
+## Unmarking tasks
+
+Unmarking a task indicates that the task is not completed
+
+Command: ``unmark <task number/ task name>``
+
+Example:
+```
+> unmark 1
+Ok, I've unmarked:
+[T][] code
+```
+
+## Deleting tasks
+
+Deleting a task removes it from the list
+
+Command: ``delete <task number/ task name>``
+
+Example:
+```
+> delete 1
+Okay, I've removed:
+[T][] code
+Now you've got 2 task(s)
+```
+
+## Finding tasks
+
+Finding a task returns tasks that contain the keyword specified
+
+Command: ``find <keyword>``
+
+Example:
+```
+> find home
+Here are the matching tasks I found:
+1. [D][] homework (by: 8 September 2025 6:00pm)
+```
+
+## Reminding
+
+Reminding returns a list of tasks with deadlines ending today
+
+Command: ``remind``
+
+Example (Assuming today is 8/9/2025):
+```
+> remind
+Here are your deadlines for today:
+1. [D][] homework (by: 8 September 2025 6:00pm)
+```
+
+## Storing and loading tasks
+
+Tasks are automatically stored in a .txt folder when user
+quits the app
+
+To quit the app:
+
+Command: ``bye``
+
+Tasks are automatically loaded from the .txt file upon starting the app
+
+```
+> bye
+Have a good day! ^.^
+(app closes)
+```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
